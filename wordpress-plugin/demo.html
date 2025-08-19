@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovative Forms - Demo Showcase</title>
+    <link rel="stylesheet" href="public/css/innovative-forms.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .demo-header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        
+        .demo-header h1 {
+            font-size: 3rem;
+            margin: 0 0 20px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .demo-header p {
+            font-size: 1.25rem;
+            margin: 0;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+        
+        .demo-section {
+            margin-bottom: 80px;
+        }
+        
+        .demo-section h2 {
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .theme-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin: 0 0 15px;
+        }
+        
+        .feature-card p {
+            margin: 0;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cta-section h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin: 0 0 20px;
+        }
+        
+        .cta-section p {
+            color: white;
+            font-size: 1.25rem;
+            margin: 0 0 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            color: #333;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .forms-grid,
+            .theme-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>🦕 Innovative Forms</h1>
+        <p>Beautiful, modern WordPress forms with impressive UI/UX design. A powerful replacement for WPForms with stunning frontend experiences.</p>
+    </div>
+    
+    <div class="demo-container">
+        <!-- Newsletter Form Demo -->
+        <div class="demo-section">
+            <h2>📧 Newsletter Subscription Form</h2>
+            <div class="innovative-form-container" 
+                 data-theme="modern"
+                 data-animation="fade-in"
+                 style="--primary-color: #667eea; --secondary-color: #764ba2;">
+                
+                <div class="innovative-form-wrapper theme-modern spacing-comfortable">
+                    <div class="form-header">
+                        <h2 class="form-title">Newsletter Subscription</h2>
+                        <p class="form-description">Subscribe to our newsletter for updates and exclusive content</p>
+                    </div>
+                    
+                    <form class="innovative-form" data-form-id="1" novalidate>
+                        <div class="form-fields">
+                            <div class="form-field field-text field-animation" data-field-index="0">
+                                <div class="field-wrapper">
+                                    <label for="first_name" class="field-label">
+                                        <i class="field-icon fas fa-user"></i>
+                                        First Name <span class="required-mark">*</span>
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" class="form-input" required />
+                                        <div class="input-focus-border"></div>
+                                    </div>
+                                    <div class="field-error"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field field-text field-animation" data-field-index="1" style="animation-delay: 0.1s;">
+                                <div class="field-wrapper">
+                                    <label for="last_name" class="field-label">
+                                        <i class="field-icon fas fa-user"></i>
+                                        Last Name <span class="required-mark">*</span>
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" class="form-input" required />
+                                        <div class="input-focus-border"></div>
+                                    </div>
+                                    <div class="field-error"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field field-email field-animation" data-field-index="2" style="animation-delay: 0.2s;">
+                                <div class="field-wrapper">
+                                    <label for="email" class="field-label">
+                                        <i class="field-icon fas fa-envelope"></i>
+                                        Email Address <span class="required-mark">*</span>
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input type="email" id="email" name="email" placeholder="Enter your email address" class="form-input" required />
+                                        <div class="input-focus-border"></div>
+                                    </div>
+                                    <div class="field-error"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field field-checkbox field-animation" data-field-index="3" style="animation-delay: 0.3s;">
+                                <div class="field-wrapper">
+                                    <fieldset class="checkbox-fieldset">
+                                        <legend class="field-label">What are you interested in? <span class="required-mark">*</span></legend>
+                                        <div class="checkbox-group">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" name="interests[]" value="beta_readers" class="checkbox-input" required />
+                                                <span class="checkbox-custom">
+                                                    <svg class="checkbox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                        <polyline points="20,6 9,17 4,12"></polyline>
+                                                    </svg>
+                                                </span>
+                                                <span class="checkbox-text">Beta Readers Community</span>
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" name="interests[]" value="pre_order" class="checkbox-input" />
+                                                <span class="checkbox-custom">
+                                                    <svg class="checkbox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                        <polyline points="20,6 9,17 4,12"></polyline>
+                                                    </svg>
+                                                </span>
+                                                <span class="checkbox-text">Pre-Order Notifications</span>
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" name="interests[]" value="publishing" class="checkbox-input" />
+                                                <span class="checkbox-custom">
+                                                    <svg class="checkbox-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                        <polyline points="20,6 9,17 4,12"></polyline>
+                                                    </svg>
+                                                </span>
+                                                <span class="checkbox-text">Publishing Updates</span>
+                                            </label>
+                                        </div>
+                                    </fieldset>
+                                    <div class="field-error"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-field field-gdpr_consent field-animation" data-field-index="4" style="animation-delay: 0.4s;">
+                                <div class="field-wrapper gdpr-consent-wrapper">
+                                    <div class="gdpr-consent-container">
+                                        <label class="gdpr-consent-label">
+                                            <input type="checkbox" name="gdpr_consent" value="1" class="gdpr-consent-input" required />
+                                            <span class="gdpr-consent-custom">
+                                                <svg class="gdpr-consent-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                                    <polyline points="20,6 9,17 4,12"></polyline>
+                                                </svg>
+                                            </span>
+                                            <span class="gdpr-consent-text">I agree to the privacy policy <span class="required-mark">*</span></span>
+                                        </label>
+                                        <div class="gdpr-description">
+                                            We need your consent to store and process your personal data.
+                                        </div>
+                                    </div>
+                                    <div class="field-error"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="submit-button">
+                                <span class="button-text">Subscribe Now</span>
+                                <span class="button-loader">
+                                    <svg class="spinner" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="32" stroke-dashoffset="32">
+                                            <animate attributeName="stroke-dashoffset" dur="1s" values="32;0;32" repeatCount="indefinite"/>
+                                        </circle>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                        
+                        <div class="form-messages"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme Showcase -->
+        <div class="demo-section">
+            <h2>🎨 Multiple Stunning Themes</h2>
+            <div class="theme-showcase">
+                <!-- Professional Theme -->
+                <div class="innovative-form-container" 
+                     data-theme="professional"
+                     style="--primary-color: #2c3e50; --secondary-color: #3498db;">
+                    
+                    <div class="innovative-form-wrapper theme-professional spacing-comfortable">
+                        <div class="form-header">
+                            <h2 class="form-title">Professional Theme</h2>
+                            <p class="form-description">Corporate-friendly design</p>
+                        </div>
+                        
+                        <form class="innovative-form" novalidate>
+                            <div class="form-fields">
+                                <div class="form-field field-text">
+                                    <div class="field-wrapper">
+                                        <label class="field-label">
+                                            <i class="field-icon fas fa-user"></i>
+                                            Full Name
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="text" placeholder="Enter your name" class="form-input" />
+                                            <div class="input-focus-border"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-field field-email">
+                                    <div class="field-wrapper">
+                                        <label class="field-label">
+                                            <i class="field-icon fas fa-envelope"></i>
+                                            Email Address
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="email" placeholder="Enter your email" class="form-input" />
+                                            <div class="input-focus-border"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-submit">
+                                <button type="submit" class="submit-button">
+                                    <span class="button-text">Submit</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Elegant Theme -->
+                <div class="innovative-form-container" 
+                     data-theme="elegant"
+                     style="--primary-color: #8e44ad; --secondary-color: #9b59b6;">
+                    
+                    <div class="innovative-form-wrapper theme-elegant spacing-comfortable">
+                        <div class="form-header">
+                            <h2 class="form-title">Elegant Theme</h2>
+                            <p class="form-description">Sophisticated design with elegant typography</p>
+                        </div>
+                        
+                        <form class="innovative-form" novalidate>
+                            <div class="form-fields">
+                                <div class="form-field field-text">
+                                    <div class="field-wrapper">
+                                        <label class="field-label">
+                                            <i class="field-icon fas fa-user"></i>
+                                            Full Name
+                                        </label>
+                                        <div class="input-wrapper">
+                                            <input type="text" placeholder="Enter your name" class="form-input" />
+                                            <div class="input-focus-border"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-field field-textarea">
+                                    <div class="field-wrapper">
+                                        <label class="field-label">Message</label>
+                                        <div class="textarea-wrapper">
+                                            <textarea placeholder="Enter your message..." class="form-textarea" rows="4"></textarea>
+                                            <div class="textarea-focus-border"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-submit">
+                                <button type="submit" class="submit-button">
+                                    <span class="button-text">Send Message</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="demo-section">
+            <h2>✨ Impressive Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Beautiful Themes</h3>
+                    <p>5 stunning pre-designed themes with customizable colors, animations, and styling options.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Fully Responsive</h3>
+                    <p>Perfect display on all devices with touch-friendly interactions and mobile-optimized layouts.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security First</h3>
+                    <p>Built-in spam protection, rate limiting, GDPR compliance, and data sanitization.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>Simple, clean admin interface with entry management, statistics, and CSV export.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Smooth Animations</h3>
+                    <p>Delightful micro-interactions, hover effects, and entrance animations that engage users.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Easy Integration</h3>
+                    <p>Simple shortcode system, WordPress-native architecture, and developer-friendly code.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Transform Your Forms?</h2>
+            <p>Replace WPForms with beautiful, modern forms that your users will love to interact with.</p>
+            <a href="#" class="cta-button">Download Plugin</a>
+        </div>
+    </div>
+    
+    <script src="public/js/innovative-forms.js"></script>
+    <script>
+        // Demo-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate form submission for demo
+            document.querySelectorAll('.innovative-form').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitButton = this.querySelector('.submit-button');
+                    const messagesContainer = this.querySelector('.form-messages');
+                    
+                    // Show loading state
+                    submitButton.classList.add('loading');
+                    submitButton.disabled = true;
+                    
+                    // Simulate API call
+                    setTimeout(() => {
+                        submitButton.classList.remove('loading');
+                        submitButton.disabled = false;
+                        
+                        // Show success message
+                        messagesContainer.innerHTML = '<div class="success-message">🎉 Demo submission successful! This is how your users will experience the form.</div>';
+                        
+                        // Clear message after 5 seconds
+                        setTimeout(() => {
+                            messagesContainer.innerHTML = '';
+                        }, 5000);
+                    }, 2000);
+                });
+            });
+            
+            // Add some interactive demo features
+            document.querySelectorAll('.form-input, .form-textarea').forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.closest('.form-field').classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.closest('.form-field').classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

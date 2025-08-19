@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Demo - Innovative Forms Plugin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- WordPress Admin Bar -->
+    <div id="wpadminbar">
+        <div class="ab-left">
+            <div class="ab-item">
+                <a href="#" class="ab-item-link">
+                    <span class="ab-icon dashicons-wordpress-alt"></span>
+                    WordPress Demo
+                </a>
+            </div>
+        </div>
+        <div class="ab-right">
+            <div class="ab-item">
+                <span>Hello, Admin</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="wp-container">
+        <!-- Sidebar -->
+        <div class="wp-sidebar">
+            <div class="wp-menu">
+                <div class="wp-menu-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="wp-menu-item" data-section="forms">
+                    <i class="fas fa-wpforms"></i>
+                    <span>Innovative Forms</span>
+                </div>
+                <div class="wp-menu-item" data-section="entries">
+                    <i class="fas fa-list"></i>
+                    <span>Form Entries</span>
+                </div>
+                <div class="wp-menu-item" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+                <div class="wp-menu-item" data-section="frontend">
+                    <i class="fas fa-eye"></i>
+                    <span>View Frontend</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="wp-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="wp-section active">
+                <div class="wp-header">
+                    <h1>Dashboard</h1>
+                    <p>Welcome to WordPress with Innovative Forms Plugin</p>
+                </div>
+                
+                <div class="dashboard-widgets">
+                    <div class="widget">
+                        <h3><i class="fas fa-wpforms"></i> Forms Overview</h3>
+                        <div class="widget-content">
+                            <div class="stat">
+                                <span class="number">3</span>
+                                <span class="label">Active Forms</span>
+                            </div>
+                            <div class="stat">
+                                <span class="number">127</span>
+                                <span class="label">Total Entries</span>
+                            </div>
+                            <div class="stat">
+                                <span class="number">89%</span>
+                                <span class="label">Conversion Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="widget">
+                        <h3><i class="fas fa-chart-line"></i> Recent Activity</h3>
+                        <div class="widget-content">
+                            <div class="activity-item">
+                                <span class="time">2 minutes ago</span>
+                                <span class="action">New newsletter subscription from John Doe</span>
+                            </div>
+                            <div class="activity-item">
+                                <span class="time">15 minutes ago</span>
+                                <span class="action">Contact form submission from Jane Smith</span>
+                            </div>
+                            <div class="activity-item">
+                                <span class="time">1 hour ago</span>
+                                <span class="action">Contributors form submission from Mike Johnson</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forms Section -->
+            <div id="forms" class="wp-section">
+                <div class="wp-header">
+                    <h1>Innovative Forms</h1>
+                    <button class="btn btn-primary" onclick="createNewForm()">
+                        <i class="fas fa-plus"></i> Add New Form
+                    </button>
+                </div>
+                
+                <div class="forms-list">
+                    <div class="form-item">
+                        <div class="form-info">
+                            <h3>Newsletter Subscription</h3>
+                            <p>Shortcode: <code>[innovative_form id="1"]</code></p>
+                            <div class="form-stats">
+                                <span><i class="fas fa-eye"></i> 1,234 views</span>
+                                <span><i class="fas fa-paper-plane"></i> 89 submissions</span>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-small" onclick="editForm(1)">Edit</button>
+                            <button class="btn btn-small" onclick="viewEntries(1)">Entries</button>
+                            <button class="btn btn-small btn-preview" onclick="previewForm(1)">Preview</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-item">
+                        <div class="form-info">
+                            <h3>Contributors Registration</h3>
+                            <p>Shortcode: <code>[innovative_form id="2"]</code></p>
+                            <div class="form-stats">
+                                <span><i class="fas fa-eye"></i> 567 views</span>
+                                <span><i class="fas fa-paper-plane"></i> 23 submissions</span>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-small" onclick="editForm(2)">Edit</button>
+                            <button class="btn btn-small" onclick="viewEntries(2)">Entries</button>
+                            <button class="btn btn-small btn-preview" onclick="previewForm(2)">Preview</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-item">
+                        <div class="form-info">
+                            <h3>Contact Form</h3>
+                            <p>Shortcode: <code>[innovative_form id="3"]</code></p>
+                            <div class="form-stats">
+                                <span><i class="fas fa-eye"></i> 890 views</span>
+                                <span><i class="fas fa-paper-plane"></i> 15 submissions</span>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn btn-small" onclick="editForm(3)">Edit</button>
+                            <button class="btn btn-small" onclick="viewEntries(3)">Entries</button>
+                            <button class="btn btn-small btn-preview" onclick="previewForm(3)">Preview</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entries Section -->
+            <div id="entries" class="wp-section">
+                <div class="wp-header">
+                    <h1>Form Entries</h1>
+                    <div class="header-actions">
+                        <select id="formFilter" onchange="filterEntries()">
+                            <option value="all">All Forms</option>
+                            <option value="1">Newsletter Subscription</option>
+                            <option value="2">Contributors Registration</option>
+                            <option value="3">Contact Form</option>
+                        </select>
+                        <button class="btn btn-secondary" onclick="exportEntries()">
+                            <i class="fas fa-download"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="entries-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Form</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>127</td>
+                                <td>Newsletter</td>
+                                <td>John Doe</td>
+                                <td>john@example.com</td>
+                                <td>2024-08-19 17:30</td>
+                                <td>
+                                    <button class="btn btn-small" onclick="viewEntry(127)">View</button>
+                                    <button class="btn btn-small btn-danger" onclick="deleteEntry(127)">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>126</td>
+                                <td>Contact</td>
+                                <td>Jane Smith</td>
+                                <td>jane@example.com</td>
+                                <td>2024-08-19 16:45</td>
+                                <td>
+                                    <button class="btn btn-small" onclick="viewEntry(126)">View</button>
+                                    <button class="btn btn-small btn-danger" onclick="deleteEntry(126)">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>125</td>
+                                <td>Contributors</td>
+                                <td>Mike Johnson</td>
+                                <td>mike@example.com</td>
+                                <td>2024-08-19 15:20</td>
+                                <td>
+                                    <button class="btn btn-small" onclick="viewEntry(125)">View</button>
+                                    <button class="btn btn-small btn-danger" onclick="deleteEntry(125)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="wp-section">
+                <div class="wp-header">
+                    <h1>Plugin Settings</h1>
+                </div>
+                
+                <div class="settings-form">
+                    <div class="setting-group">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Default Theme</label>
+                            <select>
+                                <option value="modern">Modern</option>
+                                <option value="professional">Professional</option>
+                                <option value="elegant">Elegant</option>
+                                <option value="creative">Creative</option>
+                                <option value="minimal">Minimal</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Enable GDPR Compliance
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Enable Spam Protection
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Email Settings</h3>
+                        <div class="setting-item">
+                            <label>Admin Email</label>
+                            <input type="email" value="admin@theinnovativedinosaur.com">
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox"> Send email notifications for new entries
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary">Save Settings</button>
+                </div>
+            </div>
+
+            <!-- Frontend Section -->
+            <div id="frontend" class="wp-section">
+                <div class="wp-header">
+                    <h1>Frontend Preview</h1>
+                    <p>See how your forms look on the website</p>
+                </div>
+                
+                <div class="frontend-preview">
+                    <div class="preview-tabs">
+                        <button class="tab-btn active" onclick="showPreview('newsletter')">Newsletter Form</button>
+                        <button class="tab-btn" onclick="showPreview('contributors')">Contributors Form</button>
+                        <button class="tab-btn" onclick="showPreview('contact')">Contact Form</button>
+                    </div>
+                    
+                    <div class="preview-content">
+                        <div id="newsletter-preview" class="form-preview active">
+                            <!-- Newsletter Form Preview -->
+                            <div class="innovative-form modern-theme">
+                                <div class="form-header">
+                                    <h3>Subscribe to Our Newsletter</h3>
+                                    <p>Stay updated with the latest innovations</p>
+                                </div>
+                                <form>
+                                    <div class="form-field">
+                                        <label>Full Name</label>
+                                        <input type="text" placeholder="Enter your name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Email Address</label>
+                                        <input type="email" placeholder="Enter your email">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Country</label>
+                                        <select>
+                                            <option>Select your country</option>
+                                            <option>United States</option>
+                                            <option>United Kingdom</option>
+                                            <option>Canada</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Interests</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox"> Beta Readers</label>
+                                            <label><input type="checkbox"> Updates</label>
+                                            <label><input type="checkbox"> Events</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-field">
+                                        <label>
+                                            <input type="checkbox" required> I agree to the privacy policy
+                                        </label>
+                                    </div>
+                                    <button type="submit" class="form-submit">Subscribe Now</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div id="contributors-preview" class="form-preview">
+                            <!-- Contributors Form Preview -->
+                            <div class="innovative-form professional-theme">
+                                <div class="form-header">
+                                    <h3>Join Our Contributors</h3>
+                                    <p>Share your expertise with our community</p>
+                                </div>
+                                <form>
+                                    <div class="form-field">
+                                        <label>Full Name</label>
+                                        <input type="text" placeholder="Enter your name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Email Address</label>
+                                        <input type="email" placeholder="Enter your email">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Expertise Area</label>
+                                        <input type="text" placeholder="e.g., Innovation, Technology">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Bio</label>
+                                        <textarea placeholder="Tell us about yourself..." rows="4"></textarea>
+                                    </div>
+                                    <button type="submit" class="form-submit">Join Community</button>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div id="contact-preview" class="form-preview">
+                            <!-- Contact Form Preview -->
+                            <div class="innovative-form elegant-theme">
+                                <div class="form-header">
+                                    <h3>Get In Touch</h3>
+                                    <p>We'd love to hear from you</p>
+                                </div>
+                                <form>
+                                    <div class="form-field">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Your name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Email</label>
+                                        <input type="email" placeholder="Your email">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Subject</label>
+                                        <input type="text" placeholder="Message subject">
+                                    </div>
+                                    <div class="form-field">
+                                        <label>Message</label>
+                                        <textarea placeholder="Your message..." rows="5"></textarea>
+                                    </div>
+                                    <button type="submit" class="form-submit">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Form Preview -->
+    <div id="formModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

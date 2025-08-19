@@ -1,0 +1,45 @@
+{
+  "name": "TiD Forms Development",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "forwardPorts": [3000, 5000, 5173],
+  "portsAttributes": {
+    "3000": {
+      "label": "Marketing Website",
+      "onAutoForward": "notify"
+    },
+    "5000": {
+      "label": "WordPress Demo",
+      "onAutoForward": "notify"
+    },
+    "5173": {
+      "label": "React Dev Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-json"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "./wordpress-demo/venv/bin/python",
+        "python.terminal.activateEnvironment": true
+      }
+    }
+  },
+  "remoteUser": "codespace"
+}
+
