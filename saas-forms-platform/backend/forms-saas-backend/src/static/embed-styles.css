@@ -1,0 +1,412 @@
+/**
+ * TiD Forms Embed Styles
+ * CSS for embedded forms across all themes
+ */
+
+/* Reset and base styles */
+.tid-form-container * {
+    box-sizing: border-box;
+}
+
+.tid-form-container {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.5;
+    color: #1f2937;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Theme-specific container styles */
+.tid-form-container.theme-modern {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+}
+
+.tid-form-container.theme-professional {
+    background: #ffffff;
+    border: 2px solid #1e40af;
+    box-shadow: 0 8px 25px rgba(30, 64, 175, 0.1);
+}
+
+.tid-form-container.theme-elegant {
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+    border: 1px solid #e9d5ff;
+    border-radius: 16px;
+}
+
+.tid-form-container.theme-creative {
+    background: linear-gradient(135deg, #fef7f0 0%, #fef3ec 100%);
+    border: 2px solid #fed7aa;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(251, 146, 60, 0.15);
+}
+
+.tid-form-container.theme-minimal {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Form header styles */
+.tid-form-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.tid-form-header h1,
+.tid-form-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+}
+
+.tid-form-header p {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Theme-specific header styles */
+.theme-modern .tid-form-header h1,
+.theme-modern .tid-form-header h2 {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.theme-professional .tid-form-header h1,
+.theme-professional .tid-form-header h2 {
+    color: #1e40af;
+}
+
+.theme-elegant .tid-form-header h1,
+.theme-elegant .tid-form-header h2 {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.theme-creative .tid-form-header h1,
+.theme-creative .tid-form-header h2 {
+    background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.theme-minimal .tid-form-header h1,
+.theme-minimal .tid-form-header h2 {
+    color: #374151;
+}
+
+/* Form fields container */
+.tid-form-fields {
+    margin-bottom: 24px;
+}
+
+/* Individual field styles */
+.tid-form-field {
+    margin-bottom: 20px;
+}
+
+.tid-form-field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.tid-form-field label .required {
+    color: #ef4444;
+    margin-left: 2px;
+}
+
+/* Input field styles */
+.tid-form-field input,
+.tid-form-field textarea,
+.tid-form-field select {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    background: white;
+    color: #1f2937;
+}
+
+.tid-form-field textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.tid-form-field input:focus,
+.tid-form-field textarea:focus,
+.tid-form-field select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Theme-specific input focus styles */
+.theme-modern .tid-form-field input:focus,
+.theme-modern .tid-form-field textarea:focus,
+.theme-modern .tid-form-field select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.theme-professional .tid-form-field input:focus,
+.theme-professional .tid-form-field textarea:focus,
+.theme-professional .tid-form-field select:focus {
+    border-color: #1e40af;
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+.theme-elegant .tid-form-field input:focus,
+.theme-elegant .tid-form-field textarea:focus,
+.theme-elegant .tid-form-field select:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.theme-creative .tid-form-field input:focus,
+.theme-creative .tid-form-field textarea:focus,
+.theme-creative .tid-form-field select:focus {
+    border-color: #ec4899;
+    box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1);
+}
+
+.theme-minimal .tid-form-field input:focus,
+.theme-minimal .tid-form-field textarea:focus,
+.theme-minimal .tid-form-field select:focus {
+    border-color: #4b5563;
+    box-shadow: 0 0 0 3px rgba(75, 85, 99, 0.1);
+}
+
+/* Submit button styles */
+.tid-form-submit {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.tid-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tid-form-submit:active {
+    transform: translateY(0);
+}
+
+.tid-form-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Theme-specific button styles */
+.theme-modern .tid-form-submit {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.theme-modern .tid-form-submit:hover {
+    background: linear-gradient(135deg, #5855eb 0%, #7c3aed 100%);
+}
+
+.theme-professional .tid-form-submit {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+.theme-professional .tid-form-submit:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+}
+
+.theme-elegant .tid-form-submit {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+}
+
+.theme-elegant .tid-form-submit:hover {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.theme-creative .tid-form-submit {
+    background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+}
+
+.theme-creative .tid-form-submit:hover {
+    background: linear-gradient(135deg, #db2777 0%, #ea580c 100%);
+}
+
+.theme-minimal .tid-form-submit {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+}
+
+.theme-minimal .tid-form-submit:hover {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+}
+
+/* Message styles */
+.tid-form-message {
+    padding: 16px;
+    margin-top: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.tid-form-success {
+    background-color: #dcfce7;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.tid-form-error {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+}
+
+/* Loading animation */
+.tid-form-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: tid-spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes tid-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .tid-form-container {
+        margin: 16px;
+        padding: 20px;
+        border-radius: 8px;
+    }
+    
+    .tid-form-header h1,
+    .tid-form-header h2 {
+        font-size: 20px;
+    }
+    
+    .tid-form-header p {
+        font-size: 14px;
+    }
+    
+    .tid-form-field input,
+    .tid-form-field textarea,
+    .tid-form-field select {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .tid-form-submit {
+        padding: 16px 24px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tid-form-container {
+        margin: 8px;
+        padding: 16px;
+    }
+    
+    .tid-form-field {
+        margin-bottom: 16px;
+    }
+    
+    .tid-form-fields {
+        margin-bottom: 20px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tid-form-container {
+        border: 2px solid #000000;
+    }
+    
+    .tid-form-field input,
+    .tid-form-field textarea,
+    .tid-form-field select {
+        border: 2px solid #000000;
+    }
+    
+    .tid-form-field input:focus,
+    .tid-form-field textarea:focus,
+    .tid-form-field select:focus {
+        border-color: #000000;
+        box-shadow: 0 0 0 3px #000000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .tid-form-submit,
+    .tid-form-field input,
+    .tid-form-field textarea,
+    .tid-form-field select {
+        transition: none;
+    }
+    
+    .tid-form-submit:hover {
+        transform: none;
+    }
+    
+    .tid-form-loading {
+        animation: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .tid-form-container {
+        box-shadow: none;
+        border: 1px solid #000000;
+        background: white !important;
+    }
+    
+    .tid-form-submit {
+        display: none;
+    }
+    
+    .tid-form-message {
+        display: none;
+    }
+}
+
