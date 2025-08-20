@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TiD Forms Builder - Create Beautiful Forms</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Conversational Interface Styles */
+        .chat-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .chat-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #f8fafc;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.75rem;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .message-content {
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            max-width: 70%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .chat-send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chat-send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #6b7280;
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingDot {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-result {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .embed-code {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-desc {
+            font-size: 0.875rem;
+            opacity: 0.6;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .theme-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .theme-option {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .theme-option:hover {
+            border-color: #667eea;
+        }
+
+        .theme-option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .theme-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .theme-desc {
+            font-size: 0.75rem;
+            color: #666;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .page-desc {
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .forms-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-meta {
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-small:hover {
+            transform: translateY(-1px);
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5        .template-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .template-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .template-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .template-desc {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .template-fields {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .template-action {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }  border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .entries-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .entries-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .entries-table th,
+        .entries-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .entries-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .entries-table td {
+            color: #374151;
+        }
+
+        .entries-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: white;
+            opacity: 0.8;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .form-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            📋 TiD Forms Builder
+            <span style="background: #667eea; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">SaaS Platform</span>
+        </div>
+        <nav class="nav">
+            <button class="nav-btn active" onclick="showPage('dashboard')">Dashboard</button>
+            <button class="nav-btn" onclick="showPage('chat')">💬 Chat Builder</button>
+            <button class="nav-btn" onclick="showPage('forms')">Forms</button>
+            <button class="nav-btn" onclick="showPage('templates')">Templates</button>
+        </nav>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard" class="page active">
+        <div class="container">
+            <div class="hero">
+                <h1>Create Beautiful Forms for Any Website</h1>
+                <p>Build stunning forms with our drag-and-drop builder, then embed them anywhere with a simple code snippet or iframe.</p>
+                <div class="cta-buttons">
+                    <button class="btn" onclick="openCreateFormModal()">➕ Create New Form</button>
+                    <button class="btn btn-secondary" onclick="showPage('templates')">👁️ View Templates</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-forms">0</div>
+                    <div class="stat-label">📋 Total Forms</div>
+                    <div class="stat-desc">0 active forms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-submissions">0</div>
+                    <div class="stat-label">👥 Total Submissions</div>
+                    <div class="stat-desc">Across all forms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">📈 Conversion Rate</div>
+                    <div class="stat-desc">Average across forms</div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Lightning Fast</div>
+                    <div class="feature-desc">Create forms in minutes with our intuitive drag-and-drop builder</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-title">Embed Anywhere</div>
+                    <div class="feature-desc">Use on any website with simple embed codes or iframes</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Mobile Responsive</div>
+                    <div class="feature-desc">Forms look perfect on desktop, tablet, and mobile devices</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">Beautiful Themes</div>
+                    <div class="feature-desc">5 stunning themes: Modern, Professional, Elegant, Creative, Minimal</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Analytics & Insights</div>
+                    <div class="feature-desc">Track submissions, conversion rates, and form performance</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <div class="feature-title">Export Data</div>
+                    <div class="feature-desc">Download submissions as CSV files for analysis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Builder Page -->
+    <div id="chat" class="page">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">💬 Conversational Form Builder</h1>
+                    <p class="page-desc">Create forms through natural conversation - just like chatting with an assistant!</p>
+                </div>
+                <button class="btn btn-secondary" onclick="startNewConversation()">🔄 Start New Conversation</button>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="message-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">🤖</div>
+                    <h3>TiD Forms Assistant</h3>
+                    <div style="flex: 1;"></div>
+                    <span style="font-size: 0.875rem; opacity: 0.8;">Online</span>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Messages will be added here -->
+                </div>
+                
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." disabled>
+                    <button class="chat-send-btn" id="chat-send-btn" onclick="sendMessage()" disabled>Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forms Page -->
+    <div id="forms" class="page">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Forms</h1>
+                    <p class="page-desc">Manage your forms and view submissions</p>
+                </div>
+                <button class="btn" onclick="openCreateFormModal()">Create New Form</button>
+            </div>
+            <div class="forms-grid" id="forms-list">
+                <!-- Forms will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates Page -->
+    <div id="templates" class="page">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Templates</h1>
+                    <p class="page-desc">Start with pre-built form templates</p>
+                </div>
+            </div>
+            <div class="templates-grid" id="templates-list">
+                <!-- Templates will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Entries Page -->
+    <div id="entries" class="page">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Form Entries</h1>
+                    <p class="page-desc" id="entries-form-name">View and export form submissions</p>
+                </div>
+                <div>
+                    <button class="btn btn-secondary" onclick="showPage('forms')">← Back to Forms</button>
+                    <button class="btn" onclick="exportEntries()">📥 Export CSV</button>
+                </div>
+            </div>
+            <div class="entries-container">
+                <div id="entries-content">
+                    <!-- Entries will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Form Modal -->
+    <div id="create-form-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Form</h2>
+                <button class="close-btn" onclick="closeCreateFormModal()">×</button>
+            </div>
+            <p style="color: #666; margin-bottom: 1.5rem;">Start building your form with a name, description, and theme.</p>
+            
+            <form id="create-form-form">
+                <div class="form-group">
+                    <label for="form-name">Form Name</label>
+                    <input type="text" id="form-name" placeholder="e.g., Contact Form, Newsletter Signup" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="form-description">Description (Optional)</label>
+                    <textarea id="form-description" placeholder="Describe what this form is for..." rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Theme</label>
+                    <div class="theme-selector">
+                        <div class="theme-option selected" data-theme="modern">
+                            <div class="theme-name">Modern</div>
+                            <div class="theme-desc">(Purple-Blue Gradients)</div>
+                        </div>
+                        <div class="theme-option" data-theme="professional">
+                            <div class="theme-name">Professional</div>
+                            <div class="theme-desc">(Blue Corporate)</div>
+                        </div>
+                        <div class="theme-option" data-theme="elegant">
+                            <div class="theme-name">Elegant</div>
+                            <div class="theme-desc">(Purple Luxury)</div>
+                        </div>
+                        <div class="theme-option" data-theme="creative">
+                            <div class="theme-name">Creative</div>
+                            <div class="theme-desc">(Orange-Pink)</div>
+                        </div>
+                        <div class="theme-option" data-theme="minimal">
+                            <div class="theme-name">Minimal</div>
+                            <div class="theme-desc">(Clean Gray)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateFormModal()" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn" style="flex: 1;">Create Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentFormId = null;
+        let selectedTheme = 'modern';
+
+        // Navigation
+        function showPage(pageId) {
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(pageId) || 
+                    (pageId === 'dashboard' && btn.textContent.includes('Dashboard')) ||
+                    (pageId === 'forms' && btn.textContent.includes('Forms')) ||
+                    (pageId === 'templates' && btn.textContent.includes('Templates'))) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show page
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            
+            // Load page data
+            if (pageId === 'forms') {
+                loadForms();
+            } else if (pageId === 'templates') {
+                loadTemplates();
+            } else if (pageId === 'dashboard') {
+                loadDashboard();
+            }
+        }
+
+        // Dashboard
+        async function loadDashboard() {
+            try {
+                const response = await fetch('/api/forms');
+                const forms = await response.json();
+                
+                document.getElementById('total-forms').textContent = forms.length;
+                
+                const totalSubmissions = forms.reduce((sum, form) => sum + (form.entry_count || 0), 0);
+                document.getElementById('total-submissions').textContent = totalSubmissions;
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // Forms
+        async function loadForms() {
+            try {
+                const response = await fetch('/api/forms');
+                const forms = await response.json();
+                
+                const formsList = document.getElementById('forms-list');
+                
+                if (forms.length === 0) {
+                    formsList.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <h3>No forms yet</h3>
+                            <p>Create your first form to get started</p>
+                            <button class="btn" onclick="openCreateFormModal()" style="margin-top: 1rem;">Create New Form</button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                formsList.innerHTML = forms.map(form => `
+                    <div class="form-card">
+                        <div class="form-info">
+                            <h3>${form.name}</h3>
+                            <div class="form-meta">
+                                Theme: ${form.theme} • Created: ${new Date(form.created_at).toLocaleDateString()} • ${form.entry_count || 0} submissions
+                            </div>
+                            ${form.description ? `<p style="margin-top: 0.5rem; opacity: 0.8;">${form.description}</p>` : ''}
+                        </div>
+                        <div class="form-actions">
+                            <a href="/form/${form.id}/preview" target="_blank" class="btn-small btn-primary">👁️ Preview</a>
+                            <button class="btn-small btn-secondary" onclick="showEmbedCode(${form.id})">🔗 Embed</button>
+                            <button class="btn-small btn-secondary" onclick="viewEntries(${form.id}, '${form.name}')">📊 Entries</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading forms:', error);
+            }
+        }
+
+        // Templates
+        async function loadTemplates() {
+            try {
+                const response = await fetch('/api/templates');
+                const templates = await response.json();
+                
+                const templatesList = document.getElementById('templates-list');
+                templatesList.innerHTML = templates.map(template => `
+                    <div class="template-card" onclick="createFromTemplate('${template.id}', '${template.name}')">
+                        <div class="template-title">${template.name}</div>
+                        <div class="template-desc">${template.description}</div>
+                        <div class="template-fields">
+                            Fields: ${template.fields.map(f => f.label).join(', ')}
+                        </div>
+                        <div class="template-action">Click to use this template</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading templates:', error);
+            }
+        }
+
+        // Create form modal
+        function openCreateFormModal() {
+            document.getElementById('create-form-modal').classList.add('active');
+        }
+
+        function closeCreateFormModal() {
+            document.getElementById('create-form-modal').classList.remove('active');
+            document.getElementById('create-form-form').reset();
+            selectedTheme = 'modern';
+            updateThemeSelection();
+        }
+
+        // Theme selection
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', function() {
+                selectedTheme = this.dataset.theme;
+                updateThemeSelection();
+            });
+        });
+
+        function updateThemeSelection() {
+            document.querySelectorAll('.theme-option').forEach(option => {
+                option.classList.toggle('selected', option.dataset.theme === selectedTheme);
+            });
+        }
+
+        // Create form
+        document.getElementById('create-form-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('form-name').value,
+                description: document.getElementById('form-description').value,
+                theme: selectedTheme
+            };
+            
+            try {
+                const response = await fetch('/api/forms', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    closeCreateFormModal();
+                    showPage('forms');
+                    loadDashboard();
+                } else {
+                    alert('Error creating form');
+                }
+            } catch (error) {
+                console.error('Error creating form:', error);
+                alert('Error creating form');
+            }
+        });
+
+        // Create from template
+        async function createFromTemplate(templateId, templateName) {
+            const name = prompt(`Enter a name for your ${templateName} form:`, `My ${templateName}`);
+            if (!name) return;
+            
+            try {
+                const response = await fetch(`/api/templates/${templateId}/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(`✅ ${name} created successfully!`);
+                    showPage('forms');
+                    loadDashboard();
+                    loadForms();
+                } else {
+                    alert(`❌ Error: ${result.error || 'Failed to create form from template'}`);
+                }
+            } catch (error) {
+                console.error('Error creating form from template:', error);
+                alert('❌ Error creating form from template. Please try again.');
+            }
+        }
+
+        // Embed code
+        function showEmbedCode(formId) {
+            const embedCode = `<iframe src="${window.location.origin}/form/${formId}/embed" width="100%" height="600" frameborder="0"></iframe>`;
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal active';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Embed Code</h2>
+                        <button class="close-btn" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <p style="color: #666; margin-bottom: 1rem;">Copy this code and paste it into your website:</p>
+                    <textarea readonly style="width: 100%; height: 100px; font-family: monospace; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px;">${embedCode}</textarea>
+                    <button class="btn" onclick="navigator.clipboard.writeText('${embedCode}'); alert('Copied to clipboard!')" style="margin-top: 1rem; width: 100%;">Copy to Clipboard</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // View entries
+        async function viewEntries(formId, formName) {
+            currentFormId = formId;
+            document.getElementById('entries-form-name').textContent = `Entries for "${formName}"`;
+            
+            try {
+                const response = await fetch(`/api/forms/${formId}/entries`);
+                const entries = await response.json();
+                
+                const entriesContent = document.getElementById('entries-content');
+                
+                if (entries.length === 0) {
+                    entriesContent.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📊</div>
+                            <h3>No submissions yet</h3>
+                            <p>Submissions will appear here once users fill out your form</p>
+                        </div>
+                    `;
+                } else {
+                    // Get all unique field names
+                    const allFields = new Set();
+                    entries.forEach(entry => {
+                        Object.keys(entry.data).forEach(field => allFields.add(field));
+                    });
+                    
+                    const fieldNames = Array.from(allFields);
+                    
+                    entriesContent.innerHTML = `
+                        <table class="entries-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Submitted</th>
+                                    ${fieldNames.map(field => `<th>${field}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${entries.map(entry => `
+                                    <tr>
+                                        <td>#${entry.id}</td>
+                                        <td>${new Date(entry.submitted_at).toLocaleString()}</td>
+                                        ${fieldNames.map(field => `<td>${entry.data[field] || '-'}</td>`).join('')}
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                }
+                
+                showPage('entries');
+            } catch (error) {
+                console.error('Error loading entries:', error);
+                alert('Error loading entries');
+            }
+        }
+
+        // Export entries
+        function exportEntries() {
+            if (!currentFormId) return;
+            
+            window.open(`/api/forms/${currentFormId}/entries/export`, '_blank');
+        }
+
+        // Load dashboard on page load
+        loadDashboard();
+
+        // Conversational Form Builder
+        let currentSessionId = null;
+        let isTyping = false;
+
+        // Initialize conversation when chat page is shown
+        function initializeChat() {
+            if (!currentSessionId) {
+                startNewConversation();
+            }
+        }
+
+        // Start new conversation
+        async function startNewConversation() {
+            currentSessionId = 'session_' + Date.now();
+            document.getElementById('chat-messages').innerHTML = '';
+            
+            try {
+                const response = await fetch('/api/conversation/start', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ session_id: currentSessionId })
+                });
+                
+                const result = await response.json();
+                addMessage(result.message.message, 'bot');
+                
+                // Enable input
+                document.getElementById('chat-input').disabled = false;
+                document.getElementById('chat-send-btn').disabled = false;
+                document.getElementById('chat-input').focus();
+                
+            } catch (error) {
+                console.error('Error starting conversation:', error);
+                addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'bot');
+            }
+        }
+
+        // Send message
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message || isTyping) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            try {
+                const response = await fetch('/api/conversation/message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSessionId,
+                        message: message
+                    })
+                });
+                
+                const result = await response.json();
+                
+                // Remove typing indicator
+                hideTypingIndicator();
+                
+                // Add bot response
+                addMessage(result.response.message, 'bot');
+                
+                // If form was created, show additional options
+                if (result.response.form_id) {
+                    showFormCreatedActions(result.response.form_id, result.response.embed_code);
+                }
+                
+            } catch (error) {
+                console.error('Error sending message:', error);
+                hideTypingIndicator();
+                addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+            }
+        }
+
+        // Add message to chat
+        function addMessage(message, type) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar">${type === 'bot' ? '🤖' : '👤'}</div>
+                <div class="message-content">
+                    ${message.replace(/\n/g, '<br>')}
+                    <div class="message-time">${time}</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            isTyping = true;
+            const messagesContainer = document.getElementById('chat-messages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot typing-indicator';
+            typingDiv.id = 'typing-indicator';
+            
+            typingDiv.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <div class="typing-indicator">
+                        <span>TiD Assistant is typing</span>
+                        <div class="typing-dots">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            isTyping = false;
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Show form created actions
+        function showFormCreatedActions(formId, embedCode) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'form-result';
+            
+            actionsDiv.innerHTML = `
+                <h4>🎉 Your form is ready!</h4>
+                <div style="margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-small" onclick="window.open('/form/${formId}/preview', '_blank')" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">👁️ Preview</button>
+                    <button class="btn btn-small" onclick="showPage('forms')" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">📋 View All Forms</button>
+                    <button class="btn btn-small" onclick="copyEmbedCode('${embedCode}')" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer;">📋 Copy Embed Code</button>
+                </div>
+                <div class="embed-code">${embedCode}</div>
+            `;
+            
+            messagesContainer.appendChild(actionsDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Copy embed code
+        function copyEmbedCode(embedCode) {
+            navigator.clipboard.writeText(embedCode).then(() => {
+                alert('✅ Embed code copied to clipboard!');
+            }).catch(() => {
+                alert('❌ Failed to copy embed code');
+            });
+        }
+
+        // Handle Enter key in chat input
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendMessage();
+                    }
+                });
+            }
+        });
+
+        // Enhanced showPage function to handle chat initialization
+        const originalShowPage = showPage;
+        showPage = function(pageId) {
+            originalShowPage(pageId);
+            if (pageId === 'chat') {
+                setTimeout(initializeChat, 100);
+            }
+        };
+    </script>
+</body>
+</html>

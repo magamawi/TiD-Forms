@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.name }}</title>
+    <style>
+        /* Base Form Styles */
+        .tid-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        .tid-form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .tid-form-header h2 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .tid-form-header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .tid-form {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .tid-form-field {
+            margin-bottom: 1.5rem;
+        }
+
+        .tid-form-field label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tid-form-field input,
+        .tid-form-field textarea,
+        .tid-form-field select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .tid-form-field input:focus,
+        .tid-form-field textarea:focus,
+        .tid-form-field select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-color-light);
+        }
+
+        .tid-form-field textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .tid-form-submit {
+            width: 100%;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--primary-color);
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tid-form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--primary-color-shadow);
+        }
+
+        .tid-form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: #dcfce7;
+            border: 2px solid #bbf7d0;
+            color: #166534;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Theme Styles */
+        .theme-modern {
+            --primary-color: #6366f1;
+            --primary-color-light: rgba(99, 102, 241, 0.1);
+            --primary-color-shadow: rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .theme-modern .tid-form-header h2 {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .theme-professional {
+            --primary-color: #2563eb;
+            --primary-color-light: rgba(37, 99, 235, 0.1);
+            --primary-color-shadow: rgba(37, 99, 235, 0.3);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        .theme-professional .tid-form-header h2 {
+            color: white;
+        }
+
+        .theme-elegant {
+            --primary-color: #7c3aed;
+            --primary-color-light: rgba(124, 58, 237, 0.1);
+            --primary-color-shadow: rgba(124, 58, 237, 0.3);
+            background: linear-gradient(135deg, #581c87 0%, #a855f7 100%);
+            color: white;
+        }
+
+        .theme-elegant .tid-form-header h2 {
+            color: white;
+        }
+
+        .theme-creative {
+            --primary-color: #f97316;
+            --primary-color-light: rgba(249, 115, 22, 0.1);
+            --primary-color-shadow: rgba(249, 115, 22, 0.3);
+            background: linear-gradient(135deg, #ea580c 0%, #f59e0b 100%);
+            color: white;
+        }
+
+        .theme-creative .tid-form-header h2 {
+            color: white;
+        }
+
+        .theme-minimal {
+            --primary-color: #374151;
+            --primary-color-light: rgba(55, 65, 81, 0.1);
+            --primary-color-shadow: rgba(55, 65, 81, 0.3);
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        .theme-minimal .tid-form-header h2 {
+            color: #1f2937;
+        }
+
+        .theme-minimal .tid-form {
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Adaptive Theme */
+        .theme-adaptive {
+            --primary-color: inherit;
+            --primary-color-light: rgba(0, 0, 0, 0.05);
+            --primary-color-shadow: rgba(0, 0, 0, 0.1);
+            background: transparent;
+            color: inherit;
+        }
+
+        .theme-adaptive .tid-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-adaptive .tid-form-submit {
+            background: currentColor;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .tid-form-container {
+                padding: 1rem;
+            }
+
+            .tid-form {
+                padding: 1.5rem;
+            }
+
+            .tid-form-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading .tid-form-submit::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-left: 8px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="tid-form-container theme-{{ theme }}">
+        <div class="tid-form-header">
+            <h2>{{ form_name }}</h2>
+            {% if form_description %}
+            <p>{{ form_description }}</p>
+            {% endif %}
+        </div>
+        
+        <div id="form-message"></div>
+        
+        <form class="tid-form" id="tid-form" data-form-id="{{ form_id }}">
+            <div class="tid-form-fields">
+                {% for field in fields %}
+                <div class="tid-form-field">
+                    <label for="field_{{ field.id }}">
+                        {{ field.label }}
+                        {% if field.required %}<span class="required">*</span>{% endif %}
+                    </label>
+                    
+                    {% if field.type == 'text' %}
+                    <input type="text" 
+                           id="field_{{ field.id }}" 
+                           name="{{ field.id }}" 
+                           placeholder="{{ field.placeholder or '' }}" 
+                           {% if field.required %}required{% endif %}>
+                    
+                    {% elif field.type == 'email' %}
+                    <input type="email" 
+                           id="field_{{ field.id }}" 
+                           name="{{ field.id }}" 
+                           placeholder="{{ field.placeholder or '' }}" 
+                           {% if field.required %}required{% endif %}>
+                    
+                    {% elif field.type == 'textarea' %}
+                    <textarea id="field_{{ field.id }}" 
+                              name="{{ field.id }}" 
+                              placeholder="{{ field.placeholder or '' }}" 
+                              {% if field.required %}required{% endif %}></textarea>
+                    
+                    {% elif field.type == 'select' %}
+                    <select id="field_{{ field.id }}" 
+                            name="{{ field.id }}" 
+                            {% if field.required %}required{% endif %}>
+                        <option value="">Choose an option</option>
+                        {% for option in field.options %}
+                        <option value="{{ option }}">{{ option }}</option>
+                        {% endfor %}
+                    </select>
+                    
+                    {% elif field.type == 'checkbox' %}
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="checkbox" 
+                               id="field_{{ field.id }}" 
+                               name="{{ field.id }}" 
+                               value="1"
+                               {% if field.required %}required{% endif %}>
+                        <label for="field_{{ field.id }}" style="margin: 0; font-weight: normal;">
+                            {{ field.label }}
+                        </label>
+                    </div>
+                    
+                    {% elif field.type == 'radio' %}
+                    {% for option in field.options %}
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <input type="radio" 
+                               id="field_{{ field.id }}_{{ loop.index }}" 
+                               name="{{ field.id }}" 
+                               value="{{ option }}"
+                               {% if field.required %}required{% endif %}>
+                        <label for="field_{{ field.id }}_{{ loop.index }}" style="margin: 0; font-weight: normal;">
+                            {{ option }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <button type="submit" class="tid-form-submit">
+                {{ submit_button_text or 'Submit' }}
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('tid-form');
+            const messageDiv = document.getElementById('form-message');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                form.classList.add('loading');
+                const submitBtn = form.querySelector('.tid-form-submit');
+                submitBtn.disabled = true;
+                
+                // Collect form data
+                const formData = new FormData(form);
+                const data = {};
+                
+                for (let [key, value] of formData.entries()) {
+                    if (data[key]) {
+                        // Handle multiple values (checkboxes)
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                }
+                
+                try {
+                    const response = await fetch(`/api/forms/${form.dataset.formId}/submit`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ data: data })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        messageDiv.innerHTML = '<div class="success-message">' + 
+                            (result.message || 'Thank you for your submission!') + '</div>';
+                        form.reset();
+                    } else {
+                        messageDiv.innerHTML = '<div class="error-message">' + 
+                            (result.error || 'An error occurred. Please try again.') + '</div>';
+                    }
+                } catch (error) {
+                    messageDiv.innerHTML = '<div class="error-message">Network error. Please try again.</div>';
+                }
+                
+                // Remove loading state
+                form.classList.remove('loading');
+                submitBtn.disabled = false;
+                
+                // Scroll to message
+                messageDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+    </script>
+</body>
+</html>
+
